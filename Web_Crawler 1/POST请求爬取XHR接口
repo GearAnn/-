@@ -1,0 +1,65 @@
+#!/usr/bin/python
+# coding: utf-8 
+
+"""
+@version: Python3
+@author: Ann 
+@contact: 494792590@qq.com 
+@software: Pycharm
+@file: POST方式爬取.py
+@time: 2018/11/26 0026 上午 3:00
+"""
+
+"""
+目的：打开‘百度翻译’会发现它是用Ajax post方式发送的请求来完成翻译，Ajax返回的一般是Json类型的数据；
+
+
+通过 Response 接口，然后直接用Python接入接口发送请求。 
+
+"""
+import urllib.request, urllib.parse
+
+# 获取posturl地址，注意sug就是一个接口
+post_url = 'https://fanyi.baidu.com/sug'
+
+# 对字典进行操作,把input拼接到表单里面
+word = input('请输入你要查询的单词：')
+form_data = {'kw': word, }
+
+# 处理post表单数据，因为表单的数据是str,所以要处理成byte
+form_data =urllib.parse.urlencode(form_data).encode()
+
+# 构建UA
+header = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.26\
+ Safari/537.36 Core/1.63.6788.400 QQBrowser/10.3.2767.400', }
+# 构建请求对象
+request = urllib.request.Request(url=post_url, headers=header)
+# 发送请求，拿到响应对象，注意post不用拼接url,get才需要拼接url
+response = urllib.request.urlopen(request, data=form_data)
+
+# 接口捕获成功
+print(response.read().decode())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
